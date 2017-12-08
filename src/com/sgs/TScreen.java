@@ -2,11 +2,9 @@ package com.sgs;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,24 +15,9 @@ import javax.swing.table.AbstractTableModel;
 
 public class TScreen {
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					// showThirdScreen(table);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
 	public static void showThirdScreen(JTable table) {
 
-		Map<String, Double> map = normalize(table);
+		Map<String, Double> map = calculateFinalValues(table);
 
 		JFrame frame = new JFrame();
 		frame.setBounds(700, 300, 450, 300);
@@ -53,7 +36,7 @@ public class TScreen {
 
 	}
 
-	public static Map<String, Double> normalize(JTable table) {
+	public static Map<String, Double> calculateFinalValues(JTable table) {
 
 		int dataSize = table.getRowCount();
 		LinkedHashMap<String, List<Integer>> nmap = new LinkedHashMap<String, List<Integer>>();
@@ -71,11 +54,15 @@ public class TScreen {
 
 		}
 
-		return normalizeValues(nmap);
+		return new TScreen().normalize(nmap);
 
 	}
 
-	private static Map<String, Double> normalizeValues(Map<String, List<Integer>> nmap) {
+	public Map<String, Double> normalize(Map<String, List<Integer>> nmap) {
+		
+		if(nmap == null){
+			return null;
+		}
 
 		int dataSize = nmap.size();
 		String[] names = new String[dataSize];
