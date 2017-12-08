@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,38 +25,29 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
+//The Evaluation Screen
 public class SScreen extends JPanel {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					showSecondScreen(4, false);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
+	//Entry method from first Screen. Method takes the inputs -- number of Members and if there
+	//are any previously entered values
 	public static void showSecondScreen(int numMembers, boolean isPreviouslyEntered) {
+
+		//Setting up JFrame
 		JFrame frame = new JFrame();
 		frame.setBounds(700, 300, 800, 800);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
 
+		//Setting up Jtable based on MyTableModel
 		JTable table = new JTable(new MyTableModel(numMembers, isPreviouslyEntered));
 		table.setPreferredScrollableViewportSize(new Dimension(500, 100));
 		table.setFillsViewportHeight(true);
+		
+		//Setting up Columns as Drop down columns
 		setUpColumns(table);
+		//Adjusting Column Widths
 		initColumnSizes(table);
 		table.setRowHeight(40);
 
@@ -68,8 +58,9 @@ public class SScreen extends JPanel {
 		errorLabel.setForeground(Color.RED);
 		bottombtnPnl.add(submit);
 		submit.addActionListener(new ActionListener() {
+		
 			public void actionPerformed(ActionEvent arg0) {
-
+				//A Method to validate the table
 				if (!isValidTable(table)) {
 					errorLabel.setText(" Invalid Input. Please fill out all scores ");
 
@@ -77,16 +68,6 @@ public class SScreen extends JPanel {
 					frame.setVisible(false);
 					TScreen.showThirdScreen(table);
 				}
-
-				// comboBox.getSelectedItem());
-
-				// frame.setVisible(false);
-				// TScreen.showThirdScreen(table);
-				// TScreen.normalize(table);
-				// SScreen.showSecondScreen((Integer)
-				// comboBox.getSelectedItem(),chckbxPreviouslyEntered.isSelected());
-				// SScreen secScreen = new SScreen((Integer)
-				// comboBox.getSelectedItem(),chckbxPreviouslyEntered.isSelected());
 
 			}
 		});
@@ -101,6 +82,7 @@ public class SScreen extends JPanel {
 		frame.setVisible(true);
 	}
 
+	//The method that validates the table whether inputs are valid
 	private static boolean isValidTable(JTable table) {
 
 		int dataSize = table.getRowCount();
@@ -109,7 +91,7 @@ public class SScreen extends JPanel {
 
 			for (int j = 1; j <= 3; j++) {
 				String res = (String) table.getValueAt(i, j);
-				if(res.length()==0)
+				if (res.length() == 0)
 					return false;
 			}
 
@@ -118,42 +100,7 @@ public class SScreen extends JPanel {
 		return true;
 	}
 
-	/**
-	 * Create the application.
-	 */
-	public SScreen(int numMembers, boolean isPreviouslyEntered, JFrame frame) {
-		// super(new GridLayout(1, 0));
-		initialize(numMembers, isPreviouslyEntered, frame);
-	}
-
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize(int numMembers, boolean isPreviouslyEntered, JFrame frame) {
-
-		JTable table = new JTable(new MyTableModel(numMembers, isPreviouslyEntered));
-		table.setRowHeight(30);
-		// table.setPreferredScrollableViewportSize(new Dimension(500, 70));
-		// table.setFillsViewportHeight(true);
-
-		JScrollPane scrollPane = new JScrollPane(table);
-
-		setUpColumns(table);
-
-		add(scrollPane);
-
-		/*
-		 * JPanel btnPnl = new JPanel(new BorderLayout()); JPanel bottombtnPnl =
-		 * new JPanel(new FlowLayout(FlowLayout.CENTER)); bottombtnPnl.add(new
-		 * JButton("Submit")); btnPnl.add(bottombtnPnl, BorderLayout.CENTER);
-		 * 
-		 * frame.add(table.getTableHeader(), BorderLayout.NORTH);
-		 * frame.add(table, BorderLayout.CENTER); frame.add(btnPnl,
-		 * BorderLayout.SOUTH);
-		 */
-
-	}
-
+	//Adjusts the column widths dynamically
 	private static void initColumnSizes(JTable table) {
 		MyTableModel model = (MyTableModel) table.getModel();
 		TableColumn column = null;
@@ -206,21 +153,6 @@ public class SScreen extends JPanel {
 			ComboBoxTableCellRenderer renderer = new ComboBoxTableCellRenderer();
 			renderer.setModel(model);
 			column.setCellRenderer(renderer);
-			/*
-			 * comboBox.addItem("0"); comboBox.addItem("1");
-			 * comboBox.addItem("2"); comboBox.addItem("3");
-			 * comboBox.addItem("4"); comboBox.addItem("5");
-			 */
-
-			// column.setCellEditor(new DefaultCellEditor(comboBox));
-			// column.sizeWidthToFit();
-			// Set up tool tips for the sport cells.
-			/*
-			 * DefaultTableCellRenderer renderer = new
-			 * DefaultTableCellRenderer();
-			 * renderer.setToolTipText("Click for combo box");
-			 * column.setCellRenderer(renderer);
-			 */
 
 		}
 
