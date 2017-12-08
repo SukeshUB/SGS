@@ -5,7 +5,10 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.swing.JFrame;
@@ -41,10 +44,10 @@ public class TScreen {
 		JTable fTable = new JTable(new MyFinalTableModel(map));
 		fTable.setPreferredScrollableViewportSize(new Dimension(500, 70));
 		fTable.setFillsViewportHeight(true);
-		
+
 		frame.add(fTable.getTableHeader(), BorderLayout.NORTH);
 		frame.add(fTable, BorderLayout.CENTER);
-		
+
 		frame.pack();
 		frame.setVisible(true);
 
@@ -53,27 +56,52 @@ public class TScreen {
 	public static Map<String, Double> normalize(JTable table) {
 
 		int dataSize = table.getRowCount();
-		String[] names = new String[dataSize];
-		double[] normalizedScores = new double[dataSize];
-		int sum = 0;
+		LinkedHashMap<String, List<Integer>> nmap = new LinkedHashMap<String, List<Integer>>();
 
 		for (int i = 0; i < dataSize; i++) {
 
 			String memName = (String) table.getValueAt(i, 0);
+			List<Integer> tlist = new ArrayList<Integer>();
+			for (int j = 1; j <= 3; j++) {
+
+				tlist.add(Integer.parseInt((String) table.getValueAt(i, j)));
+
+			}
+			nmap.put(memName, tlist);
+
+		}
+
+		return normalizeValues(nmap);
+
+	}
+
+	private static Map<String, Double> normalizeValues(Map<String, List<Integer>> nmap) {
+
+		int dataSize = nmap.size();
+		String[] names = new String[dataSize];
+		double[] normalizedScores = new double[dataSize];
+		int sum = 0;
+
+		int idx = 0;
+		for (String key : nmap.keySet()) {
+
+			String memName = key;
 
 			int lsum = 0;
-			for (int j = 1; j <= 3; j++) {
-				lsum += Integer.parseInt((String) table.getValueAt(i, j));
+
+			for (int num : nmap.get(key)) {
+				lsum += num;
 			}
-			names[i] = memName;
-			normalizedScores[i] = lsum;
+			names[idx] = memName;
+			normalizedScores[idx] = lsum;
 			sum += lsum;
+			idx++;
 
 		}
 
 		for (int i = 0; i < normalizedScores.length; i++) {
 
-			normalizedScores[i] = roundValue(normalizedScores[i] / sum, 2);
+			normalizedScores[i] = sum!=0 ? roundValue(normalizedScores[i] / sum, 2) : 0;
 
 		}
 
@@ -86,6 +114,7 @@ public class TScreen {
 		}
 
 		return nMap;
+
 	}
 
 	public static double roundValue(double value, int places) {
@@ -101,7 +130,7 @@ public class TScreen {
 class MyFinalTableModel extends AbstractTableModel {
 
 	private static final long serialVersionUID = 1L;
-	private String[] columnNames = { "Name   ", "Normalized Score   " };
+	private String[] columnNames = { "Name   ", "Score   " };
 
 	public final Object[] longValues = { "Averylongvalue", " " };
 	private Object[][] data;

@@ -1,15 +1,14 @@
 package com.sgs;
 
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JCheckBox;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JTable;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 public class FScreen {
 
@@ -65,10 +64,8 @@ public class FScreen {
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				//lblNewLabel.setText(" Number of People Selected : " + comboBox.getSelectedItem());
 				frame.setVisible(false);
 				SScreen.showSecondScreen((Integer) comboBox.getSelectedItem(),chckbxPreviouslyEntered.isSelected());
-				//SScreen secScreen = new SScreen((Integer) comboBox.getSelectedItem(),chckbxPreviouslyEntered.isSelected());
 				
 			}
 		});
