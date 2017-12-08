@@ -10,13 +10,12 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+//FScreen - FScreen class for the first screen for the UI, In this screen UI asks user for number of users and previously existing scores
 public class FScreen {
 
 	private JFrame frame;
-
-	/**
-	 * Launch the application.
-	 */
+	
+	//main - this is the starting point of the execution of first screen
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -31,14 +30,16 @@ public class FScreen {
 	}
 
 	/**
-	 * Create the application.
+	 * FScreen - This method initializes the first screen by calling initialize method
 	 */
 	public FScreen() {
 		initialize();
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * initialize - This method initialize the contents of the frame.
+	 * It asks for number of team members and previously entered score
+	 * As soon as submit button is pressed a transition is done to second screen.
 	 */
 	private void initialize() {
 		frame = new JFrame();
