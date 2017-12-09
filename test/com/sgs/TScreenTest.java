@@ -14,8 +14,14 @@ import org.junit.Test;
 
 import com.sgs.exception.InvalidRangeException;
 
+/**
+ * @author Rakesh
+ * Tests all the types of input against the expected values for normalize method
+ * of TScreen class
+ */
 public class TScreenTest {
-	
+
+	private static final double DELTA = 0.00001;
 	private static List<Integer> marksList1 = null;
 	private static List<Integer> marksList2 = null;
 	private static List<Integer> marksList3 = null;
@@ -26,11 +32,12 @@ public class TScreenTest {
 	private static List<Integer> marksList8 = null;
 	private static List<Integer> negativeMarkList = null;
 	private static List<Integer> marksListMoreThanFive = null;
-	
-	private static final String[] RNAMES = new String[] { "Rakesh", "Sourabh", "Yuhao", "Harsha", "Sukesh", "Dexter", "House" };
+
+	private static final String[] MEMBER_NAMES = new String[] { "Rakesh", "Sourabh", "Yuhao", "Harsha", "Sukesh", "Dexter",
+			"House" };
 	private static final double MIN = 0;
 	private static final double MAX = 1;
-	
+
 	{
 		marksList1 = new ArrayList<Integer>();
 		marksList1.add(3);
@@ -60,41 +67,48 @@ public class TScreenTest {
 		marksList7.add(3);
 		marksList7.add(4);
 		marksList7.add(0);
-		
-		//all zeroes
+
+		// all zeroes
 		marksList8 = new ArrayList<Integer>();
 		marksList8.add(0);
 		marksList8.add(0);
 		marksList8.add(0);
-		
-		//negtive values
+
+		// negtive values
 		negativeMarkList = new ArrayList<Integer>();
-		negativeMarkList.add(-1); 
+		negativeMarkList.add(-1);
 		negativeMarkList.add(4);
 		negativeMarkList.add(5);
-		
-		//marksListMoreThanFive
+
+		// marksListMoreThanFive
 		marksListMoreThanFive = new ArrayList<Integer>();
-		marksListMoreThanFive.add(6); 
+		marksListMoreThanFive.add(6);
 		marksListMoreThanFive.add(4);
 		marksListMoreThanFive.add(1);
-		
+
 	}
-	
+
+	/**
+	 * testNormalizeEmptyMap - Tests the empty map with no values passed as
+	 * parameter to the normalize method
+	 */
 	@Test
-	public void testNormalizeEmptyMap()  {
+	public void testNormalizeEmptyMap() {
 		TScreen tscreen = new TScreen();
 		Map<String, List<Integer>> dataMap = new HashMap<>();
 		Map<String, Double> normalizedScore = null;
-		 
+
 		try {
 			normalizedScore = tscreen.normalize(dataMap);
 		} catch (InvalidRangeException e) {
-			assertEquals(TScreen.INVALID_RANGE,e.getMessage().toString());
+			assertEquals(TScreen.INVALID_RANGE, e.getMessage());
 		}
-		
+
 	}
-	
+
+	/**
+	 * testNormalizeEmptyMap - Tests the null value passed to the normalize method
+	 */
 	@Test
 	public void testNormalizeNull() throws InvalidRangeException {
 		TScreen tscreen = new TScreen();
@@ -103,167 +117,218 @@ public class TScreenTest {
 		normalizedScore = tscreen.normalize(dataMap); 
 		assertNull(normalizedScore);
 	}
-	
+
+	/**
+	 * testNormalizeEmptyMap - Tests the map with two entries passed as
+	 * parameter to the normalize method
+	 */
 	@Test
 	public void testNormalizeMapWithTwoEntry() throws InvalidRangeException {
 		TScreen tscreen = new TScreen();
 		Map<String, List<Integer>> dataMap = new HashMap<>();
-		dataMap.put(RNAMES[0], marksList1);
-		dataMap.put(RNAMES[1], marksList2);
+		dataMap.put(MEMBER_NAMES[0], marksList1);
+		dataMap.put(MEMBER_NAMES[1], marksList2);
 		Map<String, Double> normalizedScore = null;
 		normalizedScore = tscreen.normalize(dataMap);
-		for(Entry<String, Double> entry: normalizedScore.entrySet()) {
-			if(RNAMES[0].equals(entry.getKey())) {
-				assertEquals((double)entry.getValue(), 0.47D,0.001);
-				assertTrue(MIN <= (double)entry.getValue() &&  (double)entry.getValue() <= MAX);
-				
-			}
-			if(RNAMES[1].equals(entry.getKey())) {
-				assertEquals((double)entry.getValue(),0.53D,0.001);
-				assertTrue(MIN <= (double)entry.getValue() &&  (double)entry.getValue() <= MAX);
+		for (Entry<String, Double> entry : normalizedScore.entrySet()) {
+			if (MEMBER_NAMES[0].equals(entry.getKey())) {
+				assertEquals((double) entry.getValue(), 0.47D, DELTA);
+				assertTrue(MIN <= (double) entry.getValue() && (double) entry.getValue() <= MAX);
+
+			} else if (MEMBER_NAMES[1].equals(entry.getKey())) {
+				assertEquals((double) entry.getValue(), 0.53D, DELTA);
+				assertTrue(MIN <= (double) entry.getValue() && (double) entry.getValue() <= MAX);
 			}
 		}
 	}
 
+	/**
+	 * testNormalizeEmptyMap - Tests the map with three entries passed as
+	 * parameter to the normalize method
+	 */
 	@Test
 	public void testNormalizeMapWithThreeEntry() throws InvalidRangeException {
 		TScreen tscreen = new TScreen();
 		Map<String, List<Integer>> dataMap = new HashMap<>();
-		dataMap.put(RNAMES[0], marksList1);
-		dataMap.put(RNAMES[1], marksList2);
-		dataMap.put(RNAMES[2], marksList3);
+		dataMap.put(MEMBER_NAMES[0], marksList1);
+		dataMap.put(MEMBER_NAMES[1], marksList2);
+		dataMap.put(MEMBER_NAMES[2], marksList3);
 
 		Map<String, Double> normalizedScore = null;
 		normalizedScore = tscreen.normalize(dataMap);
-		for(Entry<String, Double> entry: normalizedScore.entrySet()) {
-			if(RNAMES[0].equals(entry.getKey()))
-				assertEquals((double)entry.getValue(), 0.31D,0.001);
-			if(RNAMES[1].equals(entry.getKey()))
-				assertEquals((double)entry.getValue(),0.34D,0.001);
-			if(RNAMES[2].equals(entry.getKey()))
-				assertEquals((double)entry.getValue(),0.34D,0.001);
+		for (Entry<String, Double> entry : normalizedScore.entrySet()) {
+			if (MEMBER_NAMES[0].equals(entry.getKey())) {
+				assertEquals((double) entry.getValue(), 0.31D, DELTA);
+				assertTrue(MIN <= (double) entry.getValue() && (double) entry.getValue() <= MAX);
+			} else if (MEMBER_NAMES[1].equals(entry.getKey())) {
+				assertEquals((double) entry.getValue(), 0.34D, DELTA);
+				assertTrue(MIN <= (double) entry.getValue() && (double) entry.getValue() <= MAX);
+			} else if (MEMBER_NAMES[2].equals(entry.getKey())) {
+				assertEquals((double) entry.getValue(), 0.34D, DELTA);
+				assertTrue(MIN <= (double) entry.getValue() && (double) entry.getValue() <= MAX);
+			}
 		}
 	}
-	
+
+	/**
+	 * testNormalizeEmptyMap - Tests the map with six entries passed as
+	 * parameter to the normalize method
+	 */
 	@Test
 	public void testNormalizeMapWithSixEntry() throws InvalidRangeException {
 		TScreen tscreen = new TScreen();
 		Map<String, List<Integer>> dataMap = new HashMap<>();
-		dataMap.put(RNAMES[0], marksList1);
-		dataMap.put(RNAMES[1], marksList2);
-		dataMap.put(RNAMES[2], marksList3);
-		dataMap.put(RNAMES[3], marksList4);
-		dataMap.put(RNAMES[4], marksList5);
-		dataMap.put(RNAMES[5], marksList6);
+		dataMap.put(MEMBER_NAMES[0], marksList1);
+		dataMap.put(MEMBER_NAMES[1], marksList2);
+		dataMap.put(MEMBER_NAMES[2], marksList3);
+		dataMap.put(MEMBER_NAMES[3], marksList4);
+		dataMap.put(MEMBER_NAMES[4], marksList5);
+		dataMap.put(MEMBER_NAMES[5], marksList6);
 		Map<String, Double> normalizedScore = null;
 		normalizedScore = tscreen.normalize(dataMap);
-		for(Entry<String, Double> entry: normalizedScore.entrySet()) {
-			if(RNAMES[0].equals(entry.getKey()))
-				assertEquals((double)entry.getValue(), 0.17D,0.001);
-			if(RNAMES[1].equals(entry.getKey()))
-				assertEquals((double)entry.getValue(),0.19D,0.001);
-			if(RNAMES[2].equals(entry.getKey()))
-				assertEquals((double)entry.getValue(),0.19D,0.001);
-			if(RNAMES[3].equals(entry.getKey()))
-				assertEquals((double)entry.getValue(), 0.15D,0.001);
-			if(RNAMES[4].equals(entry.getKey()))
-				assertEquals((double)entry.getValue(),0.19D,0.001);
-			if(RNAMES[5].equals(entry.getKey()))
-				assertEquals((double)entry.getValue(),0.13D,0.001);
+		for (Entry<String, Double> entry : normalizedScore.entrySet()) {
+			if (MEMBER_NAMES[0].equals(entry.getKey())) {
+				assertEquals((double) entry.getValue(), 0.17D, DELTA);
+				assertTrue(MIN <= (double) entry.getValue() && (double) entry.getValue() <= MAX);
+			} else if (MEMBER_NAMES[1].equals(entry.getKey())) {
+				assertEquals((double) entry.getValue(), 0.19D, DELTA);
+				assertTrue(MIN <= (double) entry.getValue() && (double) entry.getValue() <= MAX);
+			} else if (MEMBER_NAMES[2].equals(entry.getKey())) {
+				assertEquals((double) entry.getValue(), 0.19D, DELTA);
+				assertTrue(MIN <= (double) entry.getValue() && (double) entry.getValue() <= MAX);
+			} else if (MEMBER_NAMES[3].equals(entry.getKey())) {
+				assertEquals((double) entry.getValue(), 0.15D, DELTA);
+				assertTrue(MIN <= (double) entry.getValue() && (double) entry.getValue() <= MAX);
+			} else if (MEMBER_NAMES[4].equals(entry.getKey())) {
+				assertEquals((double) entry.getValue(), 0.19D, DELTA);
+				assertTrue(MIN <= (double) entry.getValue() && (double) entry.getValue() <= MAX);
+			} else if (MEMBER_NAMES[5].equals(entry.getKey())) {
+				assertEquals((double) entry.getValue(), 0.13D, DELTA);
+				assertTrue(MIN <= (double) entry.getValue() && (double) entry.getValue() <= MAX);
+			}
 		}
 	}
-	
+
+	/**
+	 * testNormalizeEmptyMap - Tests the map with seven entries passed as
+	 * parameter to the normalize method
+	 */
 	@Test
 	public void testNormalizeMapWithSevenEntry() throws InvalidRangeException {
 		TScreen tscreen = new TScreen();
 		Map<String, List<Integer>> dataMap = new HashMap<>();
-		dataMap.put(RNAMES[0], marksList1);
-		dataMap.put(RNAMES[1], marksList2);
-		dataMap.put(RNAMES[2], marksList3);
-		dataMap.put(RNAMES[3], marksList4);
-		dataMap.put(RNAMES[4], marksList5);
-		dataMap.put(RNAMES[5], marksList6);
-		dataMap.put(RNAMES[6], marksList7);
+		dataMap.put(MEMBER_NAMES[0], marksList1);
+		dataMap.put(MEMBER_NAMES[1], marksList2);
+		dataMap.put(MEMBER_NAMES[2], marksList3);
+		dataMap.put(MEMBER_NAMES[3], marksList4);
+		dataMap.put(MEMBER_NAMES[4], marksList5);
+		dataMap.put(MEMBER_NAMES[5], marksList6);
+		dataMap.put(MEMBER_NAMES[6], marksList7);
 		Map<String, Double> normalizedScore = null;
 		normalizedScore = tscreen.normalize(dataMap);
-		for(Entry<String, Double> entry: normalizedScore.entrySet()) {
-			if(RNAMES[0].equals(entry.getKey()))
-				assertEquals((double)entry.getValue(), 0.15D,0.001);
-			if(RNAMES[1].equals(entry.getKey()))
-				assertEquals((double)entry.getValue(),0.16D,0.001);
-			if(RNAMES[2].equals(entry.getKey()))
-				assertEquals((double)entry.getValue(),0.16D,0.001);
-			if(RNAMES[3].equals(entry.getKey()))
-				assertEquals((double)entry.getValue(), 0.13D,0.001);
-			if(RNAMES[4].equals(entry.getKey()))
-				assertEquals((double)entry.getValue(),0.16D,0.001);
-			if(RNAMES[5].equals(entry.getKey()))
-				assertEquals((double)entry.getValue(),0.11D,0.001);
-			if(RNAMES[6].equals(entry.getKey()))
-				assertEquals((double)entry.getValue(),0.11D,0.001);
+		for (Entry<String, Double> entry : normalizedScore.entrySet()) {
+			if (MEMBER_NAMES[0].equals(entry.getKey())) {
+				assertEquals((double) entry.getValue(), 0.15D, DELTA);
+				assertTrue(MIN <= (double) entry.getValue() && (double) entry.getValue() <= MAX);
+			} else if (MEMBER_NAMES[1].equals(entry.getKey())) {
+				assertEquals((double) entry.getValue(), 0.16D, DELTA);
+				assertTrue(MIN <= (double) entry.getValue() && (double) entry.getValue() <= MAX);
+			} else if (MEMBER_NAMES[2].equals(entry.getKey())) {
+				assertEquals((double) entry.getValue(), 0.16D, DELTA);
+				assertTrue(MIN <= (double) entry.getValue() && (double) entry.getValue() <= MAX);
+			} else if (MEMBER_NAMES[3].equals(entry.getKey())) {
+				assertEquals((double) entry.getValue(), 0.13D, DELTA);
+				assertTrue(MIN <= (double) entry.getValue() && (double) entry.getValue() <= MAX);
+			} else if (MEMBER_NAMES[4].equals(entry.getKey())) {
+				assertEquals((double) entry.getValue(), 0.16D, DELTA);
+				assertTrue(MIN <= (double) entry.getValue() && (double) entry.getValue() <= MAX);
+			} else if (MEMBER_NAMES[5].equals(entry.getKey())) {
+				assertEquals((double) entry.getValue(), 0.11D, DELTA);
+				assertTrue(MIN <= (double) entry.getValue() && (double) entry.getValue() <= MAX);
+			} else if (MEMBER_NAMES[6].equals(entry.getKey())) {
+				assertEquals((double) entry.getValue(), 0.11D, DELTA);
+				assertTrue(MIN <= (double) entry.getValue() && (double) entry.getValue() <= MAX);
+			}
 		}
 	}
-	
-	
+
+	/**
+	 * testNormalizeEmptyMap - Tests the map with two entries with all marks as zeroes 
+	 * passed as parameter to the normalize method
+	 */
 	@Test
 	public void testNormalizeMapWithTwoEntryAllZeroes() throws InvalidRangeException {
 		TScreen tscreen = new TScreen();
 		Map<String, List<Integer>> dataMap = new HashMap<>();
-		dataMap.put(RNAMES[0], marksList8);
-		dataMap.put(RNAMES[1], marksList8);
+		dataMap.put(MEMBER_NAMES[0], marksList8);
+		dataMap.put(MEMBER_NAMES[1], marksList8);
 		Map<String, Double> normalizedScore = null;
 		normalizedScore = tscreen.normalize(dataMap);
-		for(Entry<String, Double> entry: normalizedScore.entrySet()) {
-			if(RNAMES[0].equals(entry.getKey()))
-				assertEquals((double)entry.getValue(), 0.00D,0.001);
-			if(RNAMES[1].equals(entry.getKey()))
-				assertEquals((double)entry.getValue(),0.00D,0.001);
+		for (Entry<String, Double> entry : normalizedScore.entrySet()) {
+			if (MEMBER_NAMES[0].equals(entry.getKey())) {
+				assertEquals((double) entry.getValue(), 0.00D, DELTA);
+				assertTrue(MIN <= (double) entry.getValue() && (double) entry.getValue() <= MAX);
+			} else if (MEMBER_NAMES[1].equals(entry.getKey())) {
+				assertEquals((double) entry.getValue(), 0.00D, DELTA);
+				assertTrue(MIN <= (double) entry.getValue() && (double) entry.getValue() <= MAX);
+			}
 		}
 	}
-	
+
+	/**
+	 * testNormalizeEmptyMap - Tests the map with one entry as parameter 
+	 * to the normalize method
+	 */
 	@Test
 	public void testNormalizeMapWithOneEntry() {
 		TScreen tscreen = new TScreen();
 		Map<String, List<Integer>> dataMap = new HashMap<>();
-		dataMap.put(RNAMES[0], marksList8);
+		dataMap.put(MEMBER_NAMES[0], marksList8);
 		Map<String, Double> normalizedScore = null;
 		try {
 			normalizedScore = tscreen.normalize(dataMap);
 		} catch (InvalidRangeException e) {
-			assertEquals(TScreen.INVALID_RANGE,e.getMessage().toString());
+			assertEquals(TScreen.INVALID_RANGE, e.getMessage());
 		}
-		
+
 	}
-	
+
+	/**
+	 * testNormalizeEmptyMap - Tests the map with two entries with a negative mark 
+	 * value as parameter to the normalize method
+	 */
 	@Test
 	public void testNormalizeMapWithTwoEntryNegativeValues() {
 		TScreen tscreen = new TScreen();
 		Map<String, List<Integer>> dataMap = new HashMap<>();
-		dataMap.put(RNAMES[0], negativeMarkList);
-		dataMap.put(RNAMES[1], marksList1);
+		dataMap.put(MEMBER_NAMES[0], negativeMarkList);
+		dataMap.put(MEMBER_NAMES[1], marksList1);
 		Map<String, Double> normalizedScore = null;
 		try {
 			normalizedScore = tscreen.normalize(dataMap);
 		} catch (InvalidRangeException e) {
-			assertEquals(TScreen.INVALID_RANGE,e.getMessage().toString());
+			assertEquals(TScreen.INVALID_RANGE, e.getMessage());
 		}
-		
+
 	}
-	
+
+	/**
+	 * testNormalizeEmptyMap - Tests the map with two entries, with one having 
+	 * more than five marks, as parameter to the normalize method
+	 */
 	@Test
 	public void testNormalizeMapWithTwoEntryMarksMoreThanFive() {
 		TScreen tscreen = new TScreen();
 		Map<String, List<Integer>> dataMap = new HashMap<>();
-		dataMap.put(RNAMES[0], marksListMoreThanFive);
-		dataMap.put(RNAMES[1], marksList1);
+		dataMap.put(MEMBER_NAMES[0], marksListMoreThanFive);
+		dataMap.put(MEMBER_NAMES[1], marksList1);
 		Map<String, Double> normalizedScore = null;
 		try {
 			normalizedScore = tscreen.normalize(dataMap);
 		} catch (InvalidRangeException e) {
-			assertEquals(TScreen.INVALID_RANGE,e.getMessage().toString());
+			assertEquals(TScreen.INVALID_RANGE, e.getMessage());
 		}
-		
-	}
-	
-}
 
+	}
+
+}
