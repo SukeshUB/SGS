@@ -43,7 +43,7 @@ public class FScreen {
 	 */
 	private void initialize() {
 		frame = new JFrame("Student Grading System - Select Members");
-		frame.setBounds(700, 300, 450, 300);
+		frame.setBounds(700, 300, 550, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		

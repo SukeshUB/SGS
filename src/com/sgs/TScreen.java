@@ -2,6 +2,7 @@ package com.sgs;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ public class TScreen {
 		Map<String, Double> map = calculateFinalValues(table);
 
 		JFrame frame = new JFrame("Student Grading System - Normalized Results");
-		frame.setBounds(700, 300, 850, 600);
+		frame.setBounds(700, 300, 10, 10);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
 
@@ -32,7 +33,12 @@ public class TScreen {
 		fTable.setPreferredScrollableViewportSize(new Dimension(800, 500));
 		fTable.setFillsViewportHeight(true);
 		fTable.setRowHeight(50);
-
+		
+		//fTable.setFont(new Font("Serif", Font.PLAIN, 20));
+		
+		fTable.getColumnModel().getColumn(0).setPreferredWidth(270);
+		fTable.getColumnModel().getColumn(1).setPreferredWidth(270);
+		
 		frame.add(fTable.getTableHeader(), BorderLayout.NORTH);
 		frame.add(fTable, BorderLayout.CENTER);
 

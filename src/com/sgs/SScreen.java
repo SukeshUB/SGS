@@ -37,7 +37,7 @@ public class SScreen extends JPanel {
 
 		//Setting up JFrame
 		JFrame frame = new JFrame("Student Grading System - Evaluation Screen");
-		frame.setBounds(700, 300, 800, 800);
+		frame.setBounds(700, 300, 1200, 800);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
 
@@ -48,8 +48,12 @@ public class SScreen extends JPanel {
 		
 		//Setting up Columns as Drop down columns
 		setUpColumns(table);
+		table.getColumnModel().getColumn(0).setPreferredWidth(200);
+		table.getColumnModel().getColumn(1).setPreferredWidth(200);
+		table.getColumnModel().getColumn(2).setPreferredWidth(200);
+		table.getColumnModel().getColumn(3).setPreferredWidth(200);
 		//Adjusting Column Widths
-		initColumnSizes(table);
+		//initColumnSizes(table);
 		table.setRowHeight(60);
 
 		JButton submit = new JButton("Submit");
