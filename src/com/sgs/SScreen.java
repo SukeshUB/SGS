@@ -57,7 +57,6 @@ public class SScreen extends JPanel {
 		table.getColumnModel().getColumn(2).setPreferredWidth(200);
 		table.getColumnModel().getColumn(3).setPreferredWidth(200);
 
-
 		table.setRowHeight(60);
 
 		JButton submit = new JButton("Submit");
@@ -212,9 +211,13 @@ class MyTableModel extends AbstractTableModel {
 
 	public final Object[] longValues = { "Averylongvalue", " ", " ", " " };
 
-	// Method to randomly assign values if isPreviouslyEntered is checked or to
-	// assign empty values if not checked
-	// Input : Number of members and if isPreviouslyEntered
+	/**
+	 * Method to randomly assign values if isPreviouslyEntered is checked or to
+	 * assign empty values if not checked
+	 * 
+	 * @param :
+	 *            Number of members and if isPreviouslyEntered
+	 */
 	public MyTableModel(int numMembers, boolean isPreviouslyEntered) {
 
 		data = new Object[numMembers][4];

@@ -11,14 +11,16 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 /**
- * FScreen - FScreen class for the first screen for the UI, In this screen UI asks user for number of users and previously existing scores
+ * FScreen - FScreen class for the first screen for the UI, In this screen UI
+ * asks user for number of users and previously existing scores
  */
 public class FScreen {
 
 	private JFrame frame;
 
 	/**
-	 * main - this is the starting point of the execution of first screen and the entire software
+	 * main - this is the starting point of the execution of first screen and the
+	 * entire software
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -68,12 +70,12 @@ public class FScreen {
 
 		JButton btnSubmit = new JButton("Submit");
 		btnSubmit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {		
-				//Setting this frame as invisible
+			public void actionPerformed(ActionEvent arg0) {
+				// Setting this frame as invisible
 				frame.setVisible(false);
-				//Calling the second Screen
-				SScreen.showSecondScreen((Integer) comboBox.getSelectedItem(),chckbxPreviouslyEntered.isSelected());
-							}
+				// Calling the second Screen
+				SScreen.showSecondScreen((Integer) comboBox.getSelectedItem(), chckbxPreviouslyEntered.isSelected());
+			}
 		});
 		btnSubmit.setBounds(160, 146, 97, 25);
 		frame.getContentPane().add(btnSubmit);

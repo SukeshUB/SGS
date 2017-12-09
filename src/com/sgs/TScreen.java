@@ -16,12 +16,15 @@ import javax.swing.table.AbstractTableModel;
 
 import com.sgs.exception.InvalidRangeException;
 
-//TScreen - This class for the third screen for the UI, In this screen shows normalized scores of the entered students
+/**
+ * TScreen - This class for the third screen for the UI, In this screen shows
+ * normalized scores of the entered students
+ */
 public class TScreen {
 
 	public static final String INVALID_RANGE = "Invalid Input Range";
 
-	/*
+	/**
 	 * showThirdScreen - this method shows the third screen in the UI & takes input
 	 * table with scores from second screen
 	 */
@@ -38,12 +41,10 @@ public class TScreen {
 		fTable.setPreferredScrollableViewportSize(new Dimension(800, 500));
 		fTable.setFillsViewportHeight(true);
 		fTable.setRowHeight(50);
-		
-		//fTable.setFont(new Font("Serif", Font.PLAIN, 20));
-		
+
 		fTable.getColumnModel().getColumn(0).setPreferredWidth(270);
 		fTable.getColumnModel().getColumn(1).setPreferredWidth(270);
-		
+
 		frame.add(fTable.getTableHeader(), BorderLayout.NORTH);
 		frame.add(fTable, BorderLayout.CENTER);
 
@@ -143,7 +144,9 @@ public class TScreen {
 
 }
 
-// MyFinalTableModel - This class is used as a reference for jTable Model
+/*
+ * * MyFinalTableModel - This class is used as a reference for jTable Model
+ */
 class MyFinalTableModel extends AbstractTableModel {
 
 	private static final long serialVersionUID = 1L;
@@ -153,8 +156,7 @@ class MyFinalTableModel extends AbstractTableModel {
 	private Object[][] data;
 
 	/**
-	 * MyFinalTableModel - takes normalized scores and puts into the table 
-	 * @param map : this
+	 * MyFinalTableModel - takes normalized scores and puts into the table
 	 */
 	public MyFinalTableModel(Map<String, Double> map) {
 
@@ -173,22 +175,21 @@ class MyFinalTableModel extends AbstractTableModel {
 	}
 
 	/**
-	 * getColumnCount - get ColumnCount 
+	 * getColumnCount - get ColumnCount
 	 */
 	public int getColumnCount() {
 		return columnNames.length;
 	}
 
 	/**
-	 * getRowCount - get RowCount 
+	 * getRowCount - get RowCount
 	 */
 	public int getRowCount() {
 		return data.length;
 	}
 
-
 	/**
-	 * getColumnName - get ColumnName corresponding to input row 
+	 * getColumnName - get ColumnName corresponding to input row
 	 */
 	public String getColumnName(int col) {
 		return columnNames[col];

@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
+import java.util.ArrayList; 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,7 +15,7 @@ import org.junit.Test;
 import com.sgs.exception.InvalidRangeException;
 
 /**
- * @author Rakesh
+ * @author Rakesh 
  * Tests all the types of input against the expected values for normalize method
  * of TScreen class
  */
@@ -74,7 +74,7 @@ public class TScreenTest {
 		marksList8.add(0);
 		marksList8.add(0);
 
-		// negtive values
+		// negative values
 		negativeMarkList = new ArrayList<Integer>();
 		negativeMarkList.add(-1);
 		negativeMarkList.add(4);
