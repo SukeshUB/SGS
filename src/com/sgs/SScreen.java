@@ -28,31 +28,31 @@ import com.sgs.exception.InvalidRangeException;
 
 /**
  * SScreen - The Evaluation Screen
- * */
+ */
 public class SScreen extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * showSecondScreenEntry method from first Screen. Method takes the inputs -- number of Members and if there
-	 *	are any previously entered values
-	 * */
+	 * showSecondScreenEntry method from first Screen. Method takes the inputs --
+	 * number of Members and if there are any previously entered values
+	 */
 	public static void showSecondScreen(int numMembers, boolean isPreviouslyEntered) {
 
-		//Setting up JFrame
+		// Setting up JFrame
 		JFrame frame = new JFrame("Student Grading System - Evaluation Screen");
 		frame.setBounds(700, 300, 800, 800);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
 
-		//Setting up Jtable based on MyTableModel
+		// Setting up Jtable based on MyTableModel
 		JTable table = new JTable(new MyTableModel(numMembers, isPreviouslyEntered));
 		table.setPreferredScrollableViewportSize(new Dimension(500, 100));
 		table.setFillsViewportHeight(true);
-		
-		//Setting up Columns as Drop down columns
+
+		// Setting up Columns as Drop down columns
 		setUpColumns(table);
-		//Adjusting Column Widths
+		// Adjusting Column Widths
 		initColumnSizes(table);
 		table.setRowHeight(60);
 
@@ -63,9 +63,9 @@ public class SScreen extends JPanel {
 		errorLabel.setForeground(Color.RED);
 		bottombtnPnl.add(submit);
 		submit.addActionListener(new ActionListener() {
-		
+
 			public void actionPerformed(ActionEvent arg0) {
-				//A Method to validate the table
+				// A Method to validate the table
 				if (!isValidTable(table)) {
 					errorLabel.setText(" Invalid Input. Please fill out all scores ");
 
@@ -93,7 +93,7 @@ public class SScreen extends JPanel {
 
 	/**
 	 * isValidTable- The method that validates the table whether inputs are valid
-	 * */
+	 */
 	private static boolean isValidTable(JTable table) {
 
 		int dataSize = table.getRowCount();
@@ -113,7 +113,7 @@ public class SScreen extends JPanel {
 
 	/**
 	 * initColumnSizes - Adjusts the column widths dynamically
-	 * */
+	 */
 	private static void initColumnSizes(JTable table) {
 		MyTableModel model = (MyTableModel) table.getModel();
 		TableColumn column = null;
@@ -139,7 +139,7 @@ public class SScreen extends JPanel {
 
 	/**
 	 * setUpColumns- Making columns as drop downs
-	 * */
+	 */
 	public static void setUpColumns(JTable table) {
 
 		TableColumnModel columnModel = table.getColumnModel();
@@ -175,9 +175,11 @@ public class SScreen extends JPanel {
 	}
 
 }
+
 /**
- * ComboBoxTableCellRenderer - This class is used for rendering drop downs for columns
- * */
+ * ComboBoxTableCellRenderer - This class is used for rendering drop downs for
+ * columns
+ */
 class ComboBoxTableCellRenderer extends JComboBox implements TableCellRenderer {
 
 	@Override
@@ -190,8 +192,8 @@ class ComboBoxTableCellRenderer extends JComboBox implements TableCellRenderer {
 }
 
 /**
- * MyTableModel - Table Model based on which JTable is based upon 
- * */
+ * MyTableModel - Table Model based on which JTable is based upon
+ */
 class MyTableModel extends AbstractTableModel {
 
 	private static final long serialVersionUID = 1L;
@@ -206,8 +208,9 @@ class MyTableModel extends AbstractTableModel {
 
 	public final Object[] longValues = { "Averylongvalue", " ", " ", " " };
 
-	//Method to randomly assign values if isPreviouslyEntered is checked or to  assign empty values if not checked
-	//Input : Number of members and if isPreviouslyEntered 
+	// Method to randomly assign values if isPreviouslyEntered is checked or to
+	// assign empty values if not checked
+	// Input : Number of members and if isPreviouslyEntered
 	public MyTableModel(int numMembers, boolean isPreviouslyEntered) {
 
 		data = new Object[numMembers][4];
@@ -240,42 +243,42 @@ class MyTableModel extends AbstractTableModel {
 
 	/**
 	 * getColumnCount - returns ColumnCount
-	 * */
+	 */
 	public int getColumnCount() {
 		return columnNames.length;
 	}
-	
+
 	/**
 	 * getRowCount - returns Row Count
-	 * */
+	 */
 	public int getRowCount() {
 		return data.length;
 	}
-	
+
 	/**
 	 * getColumnName - returns columns name corresponding to input column number
-	 * */
+	 */
 	public String getColumnName(int col) {
 		return columnNames[col];
 	}
 
 	/**
 	 * getValueAt - returns value corresponding to the input row and column
-	 * */
+	 */
 	public Object getValueAt(int row, int col) {
 		return data[row][col];
 	}
 
 	/**
 	 * isCellEditable - check if cell given by row and column is editable or not
-	 * */
+	 */
 	public boolean isCellEditable(int row, int col) {
 		return col != 0;
 	}
 
 	/**
 	 * setValueAt - set the object(value) to the input row and column
-	 * */
+	 */
 	public void setValueAt(Object value, int row, int col) {
 
 		data[row][col] = value;

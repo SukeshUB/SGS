@@ -42,7 +42,7 @@ public class TScreen {
 		frame.add(fTable, BorderLayout.CENTER);
 
 		frame.pack();
-		frame.setVisible(true); 
+		frame.setVisible(true);
 	}
 
 	/*
@@ -71,8 +71,10 @@ public class TScreen {
 
 	}
 
-	/*normalize - This method takes the student and the corresponding list of 3 scores, calculation of normalized scores is also calculated is also done
-	 * Method returns map of student name and corresponding normalized score  
+	/*
+	 * normalize - This method takes the student and the corresponding list of 3
+	 * scores, calculation of normalized scores is also calculated is also done
+	 * Method returns map of student name and corresponding normalized score
 	 */
 	public Map<String, Double> normalize(Map<String, List<Integer>> nmap) throws InvalidRangeException {
 
@@ -135,7 +137,7 @@ public class TScreen {
 
 }
 
-//MyFinalTableModel - This class is used as a reference for jTable Model 
+// MyFinalTableModel - This class is used as a reference for jTable Model
 class MyFinalTableModel extends AbstractTableModel {
 
 	private static final long serialVersionUID = 1L;
@@ -144,6 +146,10 @@ class MyFinalTableModel extends AbstractTableModel {
 	public final Object[] longValues = { "Averylongvalue", " " };
 	private Object[][] data;
 
+	/**
+	 * MyFinalTableModel - takes normalized scores and puts into the table 
+	 * @param map : this
+	 */
 	public MyFinalTableModel(Map<String, Double> map) {
 
 		data = new Object[map.size()][2];
@@ -160,22 +166,31 @@ class MyFinalTableModel extends AbstractTableModel {
 
 	}
 
-	//getColumnCount - returns ColumnCount 
+	/**
+	 * getColumnCount - get ColumnCount 
+	 */
 	public int getColumnCount() {
 		return columnNames.length;
 	}
 
-	//getRowCount - RowCount
+	/**
+	 * getRowCount - get RowCount 
+	 */
 	public int getRowCount() {
 		return data.length;
 	}
 
-	//getColumnName - ColumnName
+
+	/**
+	 * getColumnName - get ColumnName corresponding to input row 
+	 */
 	public String getColumnName(int col) {
 		return columnNames[col];
 	}
 
-	//getValueAt - ValueAt
+	/**
+	 * getValueAt - get object value corresponding to input row and column
+	 */
 	public Object getValueAt(int row, int col) {
 		return data[row][col];
 	}
