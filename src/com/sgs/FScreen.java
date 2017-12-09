@@ -57,15 +57,15 @@ public class FScreen {
 		Integer[] members = new Integer[] { 2, 3, 4, 5, 6, 7 };
 		JLabel lblNewLabel = new JLabel();
 		JComboBox<Integer> comboBox = new JComboBox(members);
-		comboBox.setBounds(269, 43, 45, 22);
+		comboBox.setBounds(269, 43, 60, 22);
 		frame.getContentPane().add(comboBox);
 
 		JLabel lblEnterTeamMembers = new JLabel("Number of Team Members");
 		lblEnterTeamMembers.setBounds(77, 46, 180, 16);
 		frame.getContentPane().add(lblEnterTeamMembers);
 
-		JCheckBox chckbxPreviouslyEntered = new JCheckBox("Previously Entered ?");
-		chckbxPreviouslyEntered.setBounds(144, 93, 144, 25);
+		JCheckBox chckbxPreviouslyEntered = new JCheckBox("Display previously entered scores ?");
+		chckbxPreviouslyEntered.setBounds(77, 93, 300, 25);
 		frame.getContentPane().add(chckbxPreviouslyEntered);
 
 		JButton btnSubmit = new JButton("Submit");
