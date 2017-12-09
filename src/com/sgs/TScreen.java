@@ -15,10 +15,15 @@ import javax.swing.table.AbstractTableModel;
 
 import com.sgs.exception.InvalidRangeException;
 
+//TScreen - This class for the third screen for the UI, In this screen shows normalized scores of the entered students
 public class TScreen {
 
 	public static final String INVALID_RANGE = "Invalid Input Range";
 
+	/*
+	 * showThirdScreen - this method shows the third screen in the UI & takes input
+	 * table with scores from second screen
+	 */
 	public static void showThirdScreen(JTable table) throws InvalidRangeException {
 
 		Map<String, Double> map = calculateFinalValues(table);
@@ -41,6 +46,11 @@ public class TScreen {
 
 	}
 
+	/*
+	 * calculateFinalValues - This method takes input from second screen as a jTable
+	 * and calculate final normalized score and returned a map of student name and
+	 * the corresponding normalized score
+	 */
 	public static Map<String, Double> calculateFinalValues(JTable table) throws InvalidRangeException {
 
 		int dataSize = table.getRowCount();
@@ -53,7 +63,6 @@ public class TScreen {
 			for (int j = 1; j <= 3; j++) {
 
 				tlist.add(Integer.parseInt((String) table.getValueAt(i, j)));
-
 			}
 			nmap.put(memName, tlist);
 
@@ -63,16 +72,18 @@ public class TScreen {
 
 	}
 
+	/*normalize - This method takes the student and the corresponding list of 3 scores, calculation of normalized scores is also calculated is also done
+	 * Method returns map of student name and corresponding normalized score  
+	 */
 	public Map<String, Double> normalize(Map<String, List<Integer>> nmap) throws InvalidRangeException {
-		
-		if(nmap == null){
+
+		if (nmap == null) {
 			return null;
 		}
-		
-		if(nmap.size()>7 || nmap.size()<2) {
+
+		if (nmap.size() > 7 || nmap.size() < 2) {
 			throw new InvalidRangeException(INVALID_RANGE);
 		}
-			
 
 		int dataSize = nmap.size();
 		String[] names = new String[dataSize];
@@ -87,7 +98,7 @@ public class TScreen {
 			int lsum = 0;
 
 			for (int num : nmap.get(key)) {
-				if(num<0 || num>5)
+				if (num < 0 || num > 5)
 					throw new InvalidRangeException(INVALID_RANGE);
 				lsum += num;
 			}
@@ -100,7 +111,7 @@ public class TScreen {
 
 		for (int i = 0; i < normalizedScores.length; i++) {
 
-			normalizedScores[i] = sum!=0 ? roundValue(normalizedScores[i] / sum, 2) : 0;
+			normalizedScores[i] = sum != 0 ? roundValue(normalizedScores[i] / sum, 2) : 0;
 
 		}
 
@@ -113,7 +124,6 @@ public class TScreen {
 		}
 
 		return nMap;
-
 	}
 
 	public static double roundValue(double value, int places) {
@@ -126,6 +136,7 @@ public class TScreen {
 
 }
 
+//MyFinalTableModel - This class is used as a reference for jTable Model 
 class MyFinalTableModel extends AbstractTableModel {
 
 	private static final long serialVersionUID = 1L;
@@ -150,18 +161,22 @@ class MyFinalTableModel extends AbstractTableModel {
 
 	}
 
+	//getColumnCount - returns ColumnCount 
 	public int getColumnCount() {
 		return columnNames.length;
 	}
 
+	//getRowCount - RowCount
 	public int getRowCount() {
 		return data.length;
 	}
 
+	//getColumnName - ColumnName
 	public String getColumnName(int col) {
 		return columnNames[col];
 	}
 
+	//getValueAt - ValueAt
 	public Object getValueAt(int row, int col) {
 		return data[row][col];
 	}

@@ -100,7 +100,7 @@ public class TScreenTest {
 		TScreen tscreen = new TScreen();
 		Map<String, List<Integer>> dataMap = null;
 		Map<String, Double> normalizedScore = null;
-		normalizedScore = tscreen.normalize(dataMap);
+		normalizedScore = tscreen.normalize(dataMap); 
 		assertNull(normalizedScore);
 	}
 	
