@@ -18,7 +18,6 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
@@ -27,13 +26,17 @@ import javax.swing.table.TableColumnModel;
 
 import com.sgs.exception.InvalidRangeException;
 
-//The Evaluation Screen
+/**
+ * SScreen - The Evaluation Screen
+ * */
 public class SScreen extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
-	//Entry method from first Screen. Method takes the inputs -- number of Members and if there
-	//are any previously entered values
+	/**
+	 * showSecondScreenEntry method from first Screen. Method takes the inputs -- number of Members and if there
+	 *	are any previously entered values
+	 * */
 	public static void showSecondScreen(int numMembers, boolean isPreviouslyEntered) {
 
 		//Setting up JFrame
@@ -71,7 +74,6 @@ public class SScreen extends JPanel {
 					try {
 						TScreen.showThirdScreen(table);
 					} catch (InvalidRangeException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
@@ -89,7 +91,9 @@ public class SScreen extends JPanel {
 		frame.setVisible(true);
 	}
 
-	//The method that validates the table whether inputs are valid
+	/**
+	 * isValidTable- The method that validates the table whether inputs are valid
+	 * */
 	private static boolean isValidTable(JTable table) {
 
 		int dataSize = table.getRowCount();
@@ -107,7 +111,9 @@ public class SScreen extends JPanel {
 		return true;
 	}
 
-	//Adjusts the column widths dynamically
+	/**
+	 * initColumnSizes - Adjusts the column widths dynamically
+	 * */
 	private static void initColumnSizes(JTable table) {
 		MyTableModel model = (MyTableModel) table.getModel();
 		TableColumn column = null;
@@ -131,6 +137,9 @@ public class SScreen extends JPanel {
 		}
 	}
 
+	/**
+	 * setUpColumns- Making columns as drop downs
+	 * */
 	public static void setUpColumns(JTable table) {
 
 		TableColumnModel columnModel = table.getColumnModel();
@@ -166,7 +175,9 @@ public class SScreen extends JPanel {
 	}
 
 }
-
+/**
+ * ComboBoxTableCellRenderer - This class is used for rendering drop downs for columns
+ * */
 class ComboBoxTableCellRenderer extends JComboBox implements TableCellRenderer {
 
 	@Override
@@ -178,6 +189,9 @@ class ComboBoxTableCellRenderer extends JComboBox implements TableCellRenderer {
 
 }
 
+/**
+ * MyTableModel - Table Model based on which JTable is based upon 
+ * */
 class MyTableModel extends AbstractTableModel {
 
 	private static final long serialVersionUID = 1L;
@@ -192,6 +206,8 @@ class MyTableModel extends AbstractTableModel {
 
 	public final Object[] longValues = { "Averylongvalue", " ", " ", " " };
 
+	//Method to randomly assign values if isPreviouslyEntered is checked or to  assign empty values if not checked
+	//Input : Number of members and if isPreviouslyEntered 
 	public MyTableModel(int numMembers, boolean isPreviouslyEntered) {
 
 		data = new Object[numMembers][4];
@@ -222,26 +238,44 @@ class MyTableModel extends AbstractTableModel {
 
 	}
 
+	/**
+	 * getColumnCount - returns ColumnCount
+	 * */
 	public int getColumnCount() {
 		return columnNames.length;
 	}
-
+	
+	/**
+	 * getRowCount - returns Row Count
+	 * */
 	public int getRowCount() {
 		return data.length;
 	}
-
+	
+	/**
+	 * getColumnName - returns columns name corresponding to input column number
+	 * */
 	public String getColumnName(int col) {
 		return columnNames[col];
 	}
 
+	/**
+	 * getValueAt - returns value corresponding to the input row and column
+	 * */
 	public Object getValueAt(int row, int col) {
 		return data[row][col];
 	}
 
+	/**
+	 * isCellEditable - check if cell given by row and column is editable or not
+	 * */
 	public boolean isCellEditable(int row, int col) {
 		return col != 0;
 	}
 
+	/**
+	 * setValueAt - set the object(value) to the input row and column
+	 * */
 	public void setValueAt(Object value, int row, int col) {
 
 		data[row][col] = value;

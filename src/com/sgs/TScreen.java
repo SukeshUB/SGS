@@ -42,8 +42,7 @@ public class TScreen {
 		frame.add(fTable, BorderLayout.CENTER);
 
 		frame.pack();
-		frame.setVisible(true);
-
+		frame.setVisible(true); 
 	}
 
 	/*
