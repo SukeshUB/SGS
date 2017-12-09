@@ -13,20 +13,25 @@ import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
+import com.sgs.exception.InvalidRangeException;
+
 public class TScreen {
 
-	public static void showThirdScreen(JTable table) {
+	public static final String INVALID_RANGE = "Invalid Input Range";
+
+	public static void showThirdScreen(JTable table) throws InvalidRangeException {
 
 		Map<String, Double> map = calculateFinalValues(table);
 
-		JFrame frame = new JFrame();
-		frame.setBounds(700, 300, 450, 300);
+		JFrame frame = new JFrame("Student Grading System - Normalized Results");
+		frame.setBounds(700, 300, 850, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
 
 		JTable fTable = new JTable(new MyFinalTableModel(map));
-		fTable.setPreferredScrollableViewportSize(new Dimension(500, 70));
+		fTable.setPreferredScrollableViewportSize(new Dimension(800, 500));
 		fTable.setFillsViewportHeight(true);
+		fTable.setRowHeight(50);
 
 		frame.add(fTable.getTableHeader(), BorderLayout.NORTH);
 		frame.add(fTable, BorderLayout.CENTER);
@@ -36,7 +41,7 @@ public class TScreen {
 
 	}
 
-	public static Map<String, Double> calculateFinalValues(JTable table) {
+	public static Map<String, Double> calculateFinalValues(JTable table) throws InvalidRangeException {
 
 		int dataSize = table.getRowCount();
 		LinkedHashMap<String, List<Integer>> nmap = new LinkedHashMap<String, List<Integer>>();
@@ -58,11 +63,16 @@ public class TScreen {
 
 	}
 
-	public Map<String, Double> normalize(Map<String, List<Integer>> nmap) {
+	public Map<String, Double> normalize(Map<String, List<Integer>> nmap) throws InvalidRangeException {
 		
 		if(nmap == null){
 			return null;
 		}
+		
+		if(nmap.size()>7 || nmap.size()<2) {
+			throw new InvalidRangeException(INVALID_RANGE);
+		}
+			
 
 		int dataSize = nmap.size();
 		String[] names = new String[dataSize];
@@ -77,6 +87,8 @@ public class TScreen {
 			int lsum = 0;
 
 			for (int num : nmap.get(key)) {
+				if(num<0 || num>5)
+					throw new InvalidRangeException(INVALID_RANGE);
 				lsum += num;
 			}
 			names[idx] = memName;

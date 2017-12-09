@@ -25,6 +25,8 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
+import com.sgs.exception.InvalidRangeException;
+
 //The Evaluation Screen
 public class SScreen extends JPanel {
 
@@ -35,7 +37,7 @@ public class SScreen extends JPanel {
 	public static void showSecondScreen(int numMembers, boolean isPreviouslyEntered) {
 
 		//Setting up JFrame
-		JFrame frame = new JFrame();
+		JFrame frame = new JFrame("Student Grading System - Evaluation Screen");
 		frame.setBounds(700, 300, 800, 800);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
@@ -49,7 +51,7 @@ public class SScreen extends JPanel {
 		setUpColumns(table);
 		//Adjusting Column Widths
 		initColumnSizes(table);
-		table.setRowHeight(40);
+		table.setRowHeight(60);
 
 		JButton submit = new JButton("Submit");
 		JPanel btnPnl = new JPanel(new BorderLayout());
@@ -66,7 +68,12 @@ public class SScreen extends JPanel {
 
 				} else {
 					frame.setVisible(false);
-					TScreen.showThirdScreen(table);
+					try {
+						TScreen.showThirdScreen(table);
+					} catch (InvalidRangeException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 
 			}

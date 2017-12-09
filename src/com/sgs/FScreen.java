@@ -42,7 +42,7 @@ public class FScreen {
 	 * As soon as submit button is pressed a transition is done to second screen.
 	 */
 	private void initialize() {
-		frame = new JFrame();
+		frame = new JFrame("Student Grading System - Select Members");
 		frame.setBounds(700, 300, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
