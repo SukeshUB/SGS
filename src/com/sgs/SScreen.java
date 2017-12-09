@@ -18,7 +18,6 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
@@ -71,7 +70,6 @@ public class SScreen extends JPanel {
 					try {
 						TScreen.showThirdScreen(table);
 					} catch (InvalidRangeException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
@@ -131,6 +129,7 @@ public class SScreen extends JPanel {
 		}
 	}
 
+	//Making columns as drop downs
 	public static void setUpColumns(JTable table) {
 
 		TableColumnModel columnModel = table.getColumnModel();
@@ -178,6 +177,7 @@ class ComboBoxTableCellRenderer extends JComboBox implements TableCellRenderer {
 
 }
 
+//Table Model based on which JTable is based upon
 class MyTableModel extends AbstractTableModel {
 
 	private static final long serialVersionUID = 1L;
@@ -192,6 +192,8 @@ class MyTableModel extends AbstractTableModel {
 
 	public final Object[] longValues = { "Averylongvalue", " ", " ", " " };
 
+	//Method to randomly assign values if isPreviouslyEntered is checked or to  assign empty values if not checked
+	//Input : Number of members and if isPreviouslyEntered 
 	public MyTableModel(int numMembers, boolean isPreviouslyEntered) {
 
 		data = new Object[numMembers][4];

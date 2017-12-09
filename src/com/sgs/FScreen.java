@@ -15,7 +15,7 @@ public class FScreen {
 
 	private JFrame frame;
 	
-	//main - this is the starting point of the execution of first screen
+	//main - this is the starting point of the execution of first screen and the entire software
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -65,7 +65,9 @@ public class FScreen {
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
+				//Setting this frame as invisible
 				frame.setVisible(false);
+				//Calling the second Screen
 				SScreen.showSecondScreen((Integer) comboBox.getSelectedItem(),chckbxPreviouslyEntered.isSelected());
 				
 			}
