@@ -1,4 +1,4 @@
-#How to Run ?
+# How to Run ?
 
 ## To Run Application
 Run FScreen.java as java application
